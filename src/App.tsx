@@ -1,9 +1,10 @@
 
-import { Authenticator } from '@aws-amplify/ui-react'
+// import { Authenticator } from '@aws-amplify/ui-react'
 import '@aws-amplify/ui-react/styles.css'
 import { useEffect, useState } from "react";
 import type { Schema } from "../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
+import { TodoCreateForm } from './ui-components';
 
 const client = generateClient<Schema>();
 
@@ -26,31 +27,57 @@ function App() {
     client.models.Todo.create({ content: window.prompt("Todo content") });
   }
 
-  return (
+  // return (
         
-    <Authenticator>
-      {({ signOut }) => (
-    <main>
-      <h1>My todos</h1>
-      <button onClick={createTodo}>+ new</button>
-      <ul>
-        {todos.map((todo) => (
-          <li key={todo.id}           onClick={() => deleteTodo(todo.id)}>{todo.content}</li>
-        ))}
-      </ul>
-      <div>
-        🥳 App successfully hosted. Try creating a new todo.
-        <br />
-        <a href="https://docs.amplify.aws/react/start/quickstart/#make-frontend-updates">
-          Review next step of this tutorial.
-        </a>
-      </div>
-      <button onClick={signOut}>Sign out</button>
-    </main>
+  //   <Authenticator>
+  //     {({ signOut }) => (
+  //   <main>
+  //     <h1>My todos</h1>
+  //     <button onClick={createTodo}>+ new</button>
+  //     <ul>
+  //       {todos.map((todo) => (
+  //         <li key={todo.id}           onClick={() => deleteTodo(todo.id)}>{todo.content}</li>
+  //       ))}
+  //     </ul>
+  //     <div>
+  //       🥳 App successfully hosted. Try creating a new todo.
+  //       <br />
+  //       <a href="https://docs.amplify.aws/react/start/quickstart/#make-frontend-updates">
+  //         Review next step of this tutorial.
+  //       </a>
+  //     </div>
+  //     <button onClick={signOut}>Sign out</button>
+  //   </main>
         
-      )}
-      </Authenticator>
-  );
+  //     )}
+  //     </Authenticator>
+  // );
+  return <TodoCreateForm overrides={{
+    content: {
+      placeholder: "Todo content",
+    },
+  }} 
+  onSuccess={
+    () => {
+      console.log("Todo created");
+    }
+  }
+  borderStyle='solid'
+  onValidate={{
+    content: (value, validationResponse) => {
+      console.log("Validating content", value);
+      
+      if (value.length < 3) {
+        // check if the first word is a number
+        return {
+          hasError: true,
+          errorMessage: 'Address must start with a number'
+        };
+      }
+      return validationResponse;
+    }
+  }}
+  />;
 }
 
 export default App;
