@@ -15,7 +15,7 @@ const schema = a.schema({
   createNumber7Todo: a
     .mutation()
     .arguments({
-      content: a.integer(),
+      content: a.string(),
     })
     .returns(a.ref("Todo"))
     .authorization((allow) => [allow.publicApiKey()])

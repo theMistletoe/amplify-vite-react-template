@@ -20,8 +20,7 @@ function App() {
   }, []);
 
   async function createTodo() {
-    // client.models.Todo.create({ content: window.prompt("Todo content") });
-    const result = await client.mutations.createNumber7Todo({ content: 1 });
+    const result = await client.mutations.createNumber7Todo({ content: window.prompt("郵便番号7桁を入力") });
     console.log(result);
   }
 

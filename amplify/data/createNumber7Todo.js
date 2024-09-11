@@ -1,10 +1,18 @@
+import { util } from '@aws-appsync/utils';
+
 export function request(ctx) {
+    const { content } = ctx.args;
+    const now = util.time.nowISO8601();
     return {
-        operation: 'Create',
-        key: undefined,
-        attributeValues: {
-            content: ctx.args.content
-        }
+        operation: 'PutItem',
+        key: util.dynamodb.toMapValues({
+            id: util.autoId()
+        }),
+        attributeValues: util.dynamodb.toMapValues({
+            content,
+            createdAt: now,
+            updatedAt: now
+        })
     };
 }
 
