@@ -1,7 +1,11 @@
 export function request(ctx) {
-    console.log(ctx.args.content); 
-    console.log("hello");
-    return {}
+    return {
+        operation: 'Create',
+        key: undefined,
+        attributeValues: {
+            content: ctx.args.content
+        }
+    };
 }
 
 export function response(ctx) {
