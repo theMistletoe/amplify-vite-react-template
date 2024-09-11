@@ -20,7 +20,7 @@ const schema = a.schema({
     .returns(a.ref("Todo"))
     .authorization((allow) => [allow.publicApiKey()])
     .handler(a.handler.custom({
-      dataSource: a.ref('Post'),
+      dataSource: a.ref('Todo'),
       entry: './createNumber7Todo.js'
     }))
 });
