@@ -21,7 +21,7 @@ function App() {
 
   async function createTodo() {
     const result = await client.mutations.createNumber7Todo({ content: window.prompt("郵便番号7桁を入力") });
-    console.log(result);
+    window.alert(JSON.stringify(result));
   }
 
   return (
