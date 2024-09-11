@@ -19,8 +19,10 @@ function App() {
     });
   }, []);
 
-  function createTodo() {
-    client.models.Todo.create({ content: window.prompt("Todo content") });
+  async function createTodo() {
+    // client.models.Todo.create({ content: window.prompt("Todo content") });
+    const result = await client.mutations.createNumber7Todo({ content: 1 });
+    console.log(result);
   }
 
   return (

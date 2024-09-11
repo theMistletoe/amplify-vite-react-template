@@ -12,6 +12,17 @@ const schema = a.schema({
       content: a.string(),
     })
     .authorization((allow) => [allow.publicApiKey()]),
+  createNumber7Todo: a
+    .mutation()
+    .arguments({
+      content: a.integer(),
+    })
+    .returns(a.ref("Todo"))
+    .authorization((allow) => [allow.publicApiKey()])
+    .handler(a.handler.custom({
+      dataSource: a.ref('Post'),
+      entry: './createNumber7Todo.js'
+    }))
 });
 
 export type Schema = ClientSchema<typeof schema>;
